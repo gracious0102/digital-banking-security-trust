@@ -16,8 +16,14 @@ data/raw/*.xlsx
 Thumbs.db
 *.tmp
 
-# Large generated figures (regenerate with scripts/run_analysis.py)
+# Generated figures (kept in docs/ for GitHub Pages; regenerate from pipeline)
 outputs/figures/*.png
+
+# Serialised ML models (binary — regenerate from pipeline)
+outputs/models/
+
+# Synthetic dataset (regenerate from src/data/generate.py)
+data/synthetic/
 
 # Keep directory structure
 !outputs/figures/.gitkeep
