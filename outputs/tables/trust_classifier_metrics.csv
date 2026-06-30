@@ -1,0 +1,4 @@
+model,accuracy,f1,precision,recall,auc_roc,cv_accuracy_mean,cv_accuracy_std,cv_f1_mean,cv_f1_std
+Logistic Regression,0.6105,0.606,0.6045,0.6105,0.6677,0.6038,0.0219,0.5975,0.0218
+Random Forest,0.5255,0.5235,0.5225,0.5255,0.6498,0.5215,0.0091,0.5176,0.0083
+XGBoost,0.5275,0.5294,0.5333,0.5275,0.6338,0.5159,0.0107,0.5156,0.0095

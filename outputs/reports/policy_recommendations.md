@@ -1,38 +1,43 @@
 # Consumer Protection & Digital Governance — Policy Brief
 
-**Based on:** Digital Banking: Security, Privacy & Customer Trust — Guwahati, India  
+**Project:** Digital Banking Cybersecurity: Risk, Trust & Threat Intelligence  
 **Author:** Grace Ibeji  
-**Sample:** 199 respondents, Guwahati, India
+**Dataset:** 10,000 respondents (synthetic, thesis-aligned)
 
 ## Context
 
-High digital-banking adoption concentrates financial and personal data on mobile
-and payment platforms. Policy must balance innovation with **security, privacy,
-and consumer trust** — especially where grievance resolution and fraud prevention lag.
+This brief translates data-driven cybersecurity findings into actionable
+consumer-protection and digital-governance recommendations.
+Population attack surface risk level: **High**.
 
 ## Recommendations
 
-### 1. Consumer Protection
+### 1. Multi-Factor Authentication
+**Severity:** Critical  
+**Finding:** Only 62.6% of users have MFA enabled despite it being the single most effective fraud deterrent.  
+**Recommendation:** Mandate MFA for all transactions above ₹5,000. Require banks to default-enable MFA for new accounts.
 
-**Finding:** Grievance resolution scores 85.9% positive — the weakest operational trust driver.  
-**Recommendation:** Mandate time-bound digital grievance resolution SLAs and publish bank-wise resolution metrics.
+### 2. Fraud Incident Response
+**Severity:** High  
+**Finding:** 31.9% of respondents experienced fraud; grievance resolution scores 15.5% positive — the weakest trust driver.  
+**Recommendation:** Legislate 48-hour mandatory acknowledgement and 15-day resolution SLA for digital fraud complaints, with public reporting.
 
-### 2. Data Privacy
+### 3. Data Privacy & Transparency
+**Severity:** High  
+**Finding:** Weakest SPT dimension: 'Timely grievance resolution' — users lack confidence in institutional accountability.  
+**Recommendation:** Require plain-language data-use disclosures, granular consent dashboards, and third-party data-sharing audit trails.
 
-**Finding:** Security perceptions (88.9% positive) lag behind convenience drivers.  
-**Recommendation:** Require plain-language privacy notices and consent flows before enabling high-risk payment features.
+### 4. Cybersecurity Literacy
+**Severity:** Medium  
+**Finding:** Low phishing-awareness and password-hygiene scores correlate strongly with fraud victimisation in the ML models.  
+**Recommendation:** Mandate bank-funded in-app security literacy modules; integrate cyber-hygiene into school curricula.
 
-### 3. Payments Security
+### 5. Regulatory Oversight
+**Severity:** Medium  
+**Finding:** Trust in regulators is fragmented — younger, rural, and lower-income cohorts show significantly lower regulatory trust.  
+**Recommendation:** Establish an independent Digital Banking Ombudsman with publicly accessible incident dashboards and quarterly reporting.
 
-**Finding:** UPI and mobile banking are the most-used channels, concentrating fraud and phishing risk.  
-**Recommendation:** Expand real-time fraud alerts, transaction limits for new devices, and mandatory multi-factor authentication.
-
-### 4. Digital Governance
-
-**Finding:** Overall trust is high but uneven — weakest dimension: Timely grievance resolution.  
-**Recommendation:** Establish independent digital-banking ombudsman reporting with public dashboards on security incidents.
-
-### 5. Financial Inclusion & Literacy
-
-**Finding:** Majority of respondents are under 25 and students — digitally native but potentially less risk-aware.  
-**Recommendation:** Integrate cybersecurity and scam-awareness modules into school and university financial-literacy programmes.
+### 6. Shared-Device & ATM Security
+**Severity:** Medium  
+**Finding:** 25%+ of respondents access digital banking on shared devices; ATM skimming remains a vector in Tier-2/3 cities.  
+**Recommendation:** Enforce automatic session-logout, device-fingerprinting alerts, and mandatory EMV chip adoption for ATM cards.

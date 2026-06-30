@@ -1,0 +1,26 @@
+segment_value,vulnerable_pct,mean_posture,n,segment
+55+,16.3,56.5,196,age_group
+Tier-2,11.0,61.2,2203,region
+100k-200k,10.7,61.0,1886,income_bracket
+25-34,10.1,61.5,3084,age_group
+Salaried Employee,10.1,61.7,3840,occupation
+Student,10.0,61.7,2319,occupation
+Postgraduate,9.9,62.0,3397,education
+Graduate,9.9,61.8,4024,education
+<25k,9.9,62.4,1411,income_bracket
+Retired,9.8,61.5,715,occupation
+Tier-1,9.8,61.8,2460,region
+45-54,9.8,61.4,1162,age_group
+Doctoral,9.7,61.9,791,education
+Business Owner,9.7,61.8,1625,occupation
+25k-50k,9.6,61.7,2780,income_bracket
+Other,9.6,62.2,302,occupation
+Tier-3,9.4,62.4,1451,region
+50k-100k,9.3,61.9,3091,income_bracket
+18-24,9.3,62.6,3424,age_group
+35-44,9.2,61.8,2134,age_group
+Metro,9.1,62.0,2966,region
+>200k,8.9,62.8,832,income_bracket
+Rural,8.8,62.1,920,region
+High School,8.8,61.4,1788,education
+Self-Employed,8.0,62.7,1199,occupation

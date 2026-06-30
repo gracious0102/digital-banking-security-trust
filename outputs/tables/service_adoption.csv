@@ -1,5 +1,7 @@
-service,count,percentage
-Mobile Banking App,163,81.9
-Internet Banking,140,70.4
-ATM Services,136,68.3
-Digital Payment Apps (UPI),131,65.8
+channel,adopters,adoption_pct
+Mobile Banking App,8710,87.1
+UPI / Digital Payments,8522,85.2
+Internet Banking,7215,72.2
+ATM Services,5452,54.5
+NEFT / RTGS,5246,52.5
+Aadhaar Pay,2910,29.1

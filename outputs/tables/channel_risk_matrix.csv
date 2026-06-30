@@ -1,0 +1,7 @@
+channel,adoption_pct,attack_surface,malware_risk,phishing_risk,account_takeover_risk,data_exfiltration_risk,composite_risk_score,weighted_risk_score
+Mobile Banking,87.1,85.0,75.0,90.0,80.0,70.0,80.0,69.7
+UPI / Payments,85.2,90.0,65.0,95.0,70.0,60.0,76.0,64.8
+Internet Banking,72.2,70.0,80.0,85.0,85.0,80.0,80.0,57.7
+NEFT/RTGS,52.5,55.0,45.0,60.0,70.0,65.0,59.0,31.0
+ATM Services,54.5,60.0,55.0,50.0,65.0,45.0,55.0,30.0
+Aadhaar Pay,29.1,65.0,50.0,70.0,60.0,75.0,64.0,18.6

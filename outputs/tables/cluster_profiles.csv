@@ -1,0 +1,5 @@
+cluster_id,has_experienced_fraud,q_feel_secure,q_trust_platform,q_grievance_resolution,q_phishing_awareness,q_data_breach_concern,cluster_label,n_members,fraud_rate_pct
+0,0.168,2.271,2.277,2.945,1.772,4.131,Security-Conscious & Trusting,2443,16.8
+1,0.003,4.01,4.009,4.567,3.38,2.177,Digitally Active but Vulnerable,2915,0.3
+2,0.997,4.249,4.264,4.68,3.165,3.689,Skeptical / Low-Adopter,2547,99.7
+3,0.112,2.148,2.153,2.848,3.558,4.128,High-Risk / Fraud-Exposed,2095,11.2

@@ -1,0 +1,6 @@
+threat_actor,primary_target,tactics,skill_level,motivation
+Phishing Operator,UPI / Mobile Banking users,Smishing | Vishing | Fake UPI apps | OTP fraud,Low–Medium,Financial
+Account Takeover Actor,Internet Banking / High-income users,Credential stuffing | SIM swap | Session hijack,Medium–High,Financial
+Insider Threat,Customer PII / Transaction records,Data exfiltration | Privilege abuse,Medium,Financial / Espionage
+APT / Nation-State,Banking infrastructure / SWIFT,Spear phishing | Supply-chain attack | Zero-day exploits,Very High,Geopolitical / Financial
+Social Engineer,Low-literacy / Elderly users,Impersonation | Fake customer care | Gift-card scams,Low,Financial

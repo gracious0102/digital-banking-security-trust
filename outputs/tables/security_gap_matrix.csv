@@ -1,0 +1,8 @@
+gap,severity,prevalence_pct,mitigation,priority_score
+No MFA enabled,5,37.4,Mandate MFA for all high-value transactions,1.87
+Low phishing awareness,4,34.7,Mandatory in-app phishing-simulation training,1.39
+No fraud reported after incident,5,27.7,Streamline one-tap fraud reporting; proactive outreach to victims,1.38
+App not regularly updated,3,39.1,Enforce minimum app version before login,1.17
+No biometric authentication,3,34.6,Default-enable biometrics on supported devices,1.04
+Shared device usage,4,17.1,Enforce session expiry + device-binding alerts,0.68
+Weak password hygiene,4,11.3,Enforce password complexity + breach-check on login,0.45
