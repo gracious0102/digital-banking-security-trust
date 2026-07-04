@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.env.*
+
+# Raw survey data (real respondent PII — never commit)
+data/raw/*.csv
+data/raw/*.xlsx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Large generated figures (regenerate with scripts/run_analysis.py)
+outputs/figures/*.png
+
+# Keep directory structure
+!outputs/figures/.gitkeep
+!outputs/tables/.gitkeep
+!outputs/reports/.gitkeep
+!data/raw/.gitkeep
