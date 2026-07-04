@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Banking Cybersecurity — Risk, Trust &amp; Threat Intelligence</title>
+<meta name="description" content="End-to-end cybersecurity research pipeline: 10,000 respondents, XGBoost fraud classifier (AUC=1.000), K-Means segmentation, SHAP, CVSS risk matrix, and evidence-based policy.">
+<meta property="og:title" content="Digital Banking Cybersecurity Research">
+<meta property="og:description" content="10k respondents · XGBoost AUC=1.000 · CVSS risk matrix · 30 charts">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07071a;--bg2:#0e0e22;--bg3:#16162e;--card:#1c1c38;
+  --border:rgba(99,102,241,.18);--border2:rgba(99,102,241,.08);
+  --primary:#6366f1;--pglow:rgba(99,102,241,.25);
+  --cyan:#22d3ee;--cglow:rgba(34,211,238,.2);
+  --text:#e2e8f0;--muted:#8892a4;--muted2:#5a6478;
+  --success:#10b981;--warn:#f59e0b;--danger:#ef4444;
+  --r:12px;--r-sm:8px;
+  --shadow:0 8px 32px rgba(0,0,0,.5);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(7,7,26,.88);backdrop-filter:blur(24px) saturate(160%);
+  border-bottom:1px solid var(--border);
+  padding:0 clamp(1rem,4vw,2.5rem);
+  height:60px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:600;
+  color:var(--cyan);display:flex;align-items:center;gap:.5rem;letter-spacing:.04em;
+}
+.nav-logo-hex{font-size:1.1rem;color:var(--primary)}
+.nav-links{display:flex;gap:.15rem;list-style:none}
+.nav-links a{
+  padding:.35rem .75rem;font-size:.78rem;font-weight:500;
+  color:var(--muted);border-radius:6px;transition:all .2s;letter-spacing:.02em;
+}
+.nav-links a:hover{color:var(--text);background:rgba(99,102,241,.1)}
+.nav-pill{
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;
+  padding:.22rem .65rem;border-radius:20px;
+  background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.25);
+  color:var(--cyan);white-space:nowrap;
+}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  padding:8rem 1.5rem 5rem;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(99,102,241,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(99,102,241,.055) 1px,transparent 1px);
+  background-size:56px 56px;
+  animation:gridMove 25s linear infinite;
+}
+.hero-glow{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(99,102,241,.13) 0%,rgba(34,211,238,.05) 50%,transparent 80%);
+}
+@keyframes gridMove{0%{transform:translateY(0)}100%{transform:translateY(56px)}}
+.hero-content{position:relative;z-index:2;max-width:880px}
+.hero-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--cyan);
+  display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.75rem;
+}
+.hero-tag::before,.hero-tag::after{content:'';display:block;width:36px;height:1px;background:currentColor;opacity:.45}
+h1{
+  font-size:clamp(2rem,5.5vw,3.8rem);font-weight:800;
+  line-height:1.12;letter-spacing:-.025em;margin-bottom:1.5rem;
+}
+.grad{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:660px;margin:0 auto 2.5rem;line-height:1.75}
+.cta-row{display:flex;gap:.875rem;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.72rem 1.65rem;font-size:.88rem;font-weight:600;
+  border-radius:var(--r-sm);border:none;cursor:pointer;transition:all .25s ease;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),#818cf8);color:#fff;
+  box-shadow:0 0 24px var(--pglow);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 40px var(--pglow)}
+.btn-ghost{
+  background:transparent;color:var(--cyan);
+  border:1px solid rgba(34,211,238,.35);
+}
+.btn-ghost:hover{background:rgba(34,211,238,.07);border-color:var(--cyan)}
+
+/* ===== STATS ===== */
+#stats{
+  background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:3.5rem 1.5rem;
+}
+.stats-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:2rem;
+  text-align:center;
+}
+.stat-val{
+  font-family:'JetBrains Mono',monospace;font-size:2.1rem;font-weight:700;
+  background:linear-gradient(135deg,var(--primary),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-lbl{font-size:.72rem;color:var(--muted);margin-top:.3rem;letter-spacing:.05em;line-height:1.3}
+
+/* ===== SECTION FRAMEWORK ===== */
+section{padding:5.5rem 1.5rem}
+.wrap{max-width:1140px;margin:0 auto}
+.stag{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:.75rem;
+}
+h2{font-size:clamp(1.6rem,3.2vw,2.3rem);font-weight:700;letter-spacing:-.025em;margin-bottom:1rem}
+h3{font-size:1.15rem;font-weight:600;margin-bottom:.75rem}
+.lead{font-size:1rem;color:var(--muted);max-width:700px;margin-bottom:3rem;line-height:1.75}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--primary),var(--cyan),transparent);opacity:.25}
+
+/* ===== CARD ===== */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.5rem;
+  transition:all .3s ease;
+}
+.card:hover{border-color:rgba(99,102,241,.45);transform:translateY(-2px);box-shadow:0 14px 40px rgba(99,102,241,.12)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem}
+
+/* ===== ABOUT ===== */
+#about{background:var(--bg)}
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text p{color:var(--muted);margin-bottom:1rem;font-size:.95rem}
+.feat-list{list-style:none;margin-top:1.25rem}
+.feat-list li{
+  display:flex;align-items:flex-start;gap:.65rem;
+  padding:.55rem 0;border-bottom:1px solid var(--border2);
+  font-size:.88rem;color:var(--muted);
+}
+.feat-list li::before{content:'▸';color:var(--cyan);flex-shrink:0;margin-top:.15rem}
+.info-card{
+  background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(34,211,238,.04));
+  border:1px solid rgba(99,102,241,.3);border-radius:var(--r);padding:1.75rem;
+}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border)}
+.info-val{font-size:.88rem;font-weight:500;margin-top:.2rem}
+.info-key{font-size:.68rem;color:var(--muted);letter-spacing:.04em}
+.bar-wrap{margin-bottom:.9rem}
+.bar-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem}
+.bar-lbl{font-size:.82rem;font-weight:500}
+.bar-num{font-family:'JetBrains Mono',monospace;font-size:.82rem}
+.bar-track{height:7px;background:rgba(255,255,255,.06);border-radius:4px}
+.bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--primary),var(--cyan))}
+
+/* ===== METHODOLOGY ===== */
+#methodology{background:var(--bg2)}
+.pipeline{
+  display:flex;gap:0;margin:3rem 0;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+}
+.pipe-step{
+  flex:1;padding:1.75rem 1.25rem;text-align:center;
+  border-right:1px solid var(--border);
+  transition:background .2s;
+}
+.pipe-step:last-child{border-right:none}
+.pipe-step:hover{background:rgba(99,102,241,.06)}
+.pipe-icon{font-size:1.75rem;margin-bottom:.6rem}
+.pipe-num{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--cyan);letter-spacing:.12em;margin-bottom:.25rem}
+.pipe-title{font-size:.85rem;font-weight:600;margin-bottom:.3rem}
+.pipe-desc{font-size:.73rem;color:var(--muted);line-height:1.5}
+
+/* TABS */
+.tabs{margin-top:2.5rem}
+.tab-nav{display:flex;gap:.4rem;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.tab-btn{
+  padding:.5rem 1.1rem;font-size:.8rem;font-weight:500;
+  background:transparent;border:none;border-bottom:2px solid transparent;
+  color:var(--muted);cursor:pointer;margin-bottom:-1px;transition:all .2s;
+}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}
+.tab-btn:hover:not(.active){color:var(--text)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* ===== FINDINGS ===== */
+#findings{background:var(--bg)}
+.chart-2col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.chart-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.5rem;
+}
+.chart-ttl{font-size:.72rem;font-weight:600;color:var(--muted);letter-spacing:.08em;margin-bottom:1.25rem}
+canvas{max-height:270px}
+
+/* ===== ML ===== */
+#ml{background:var(--bg2)}
+.ml-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2.5rem}
+.metric{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;text-align:center}
+.mval{font-family:'JetBrains Mono',monospace;font-size:1.7rem;font-weight:700}
+.mval.s{color:var(--success)}.mval.w{color:var(--warn)}.mval.d{color:var(--danger)}.mval.p{color:var(--primary)}.mval.c{color:var(--cyan)}
+.mlbl{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.msub{font-size:.67rem;color:var(--muted2);margin-top:.1rem}
+.ml-split{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.model-tbl{width:100%;border-collapse:collapse;font-size:.83rem}
+.model-tbl th{text-align:left;padding:.55rem .7rem;background:rgba(99,102,241,.1);color:var(--muted);font-size:.72rem;font-weight:600;letter-spacing:.05em}
+.model-tbl td{padding:.6rem .7rem;border-bottom:1px solid var(--border2);color:var(--text)}
+.model-tbl tr:hover td{background:rgba(99,102,241,.04)}
+.best{color:var(--success);font-weight:600}
+.badge{display:inline-block;padding:.14rem .45rem;border-radius:4px;font-size:.67rem;font-weight:700}
+.bs{background:rgba(16,185,129,.15);color:var(--success)}
+.bw{background:rgba(245,158,11,.15);color:var(--warn)}
+.bd{background:rgba(239,68,68,.15);color:var(--danger)}
+.bi{background:rgba(99,102,241,.15);color:#a5b4fc}
+.cluster-cards{display:grid;gap:.6rem}
+.cc{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:var(--r);padding:1rem 1.1rem}
+.cc h4{font-size:.85rem;margin-bottom:.25rem}
+.cc p{font-size:.77rem;color:var(--muted)}
+.cc.d{border-left-color:var(--danger)}.cc.w{border-left-color:var(--warn)}.cc.s{border-left-color:var(--success)}.cc.c{border-left-color:var(--cyan)}
+.fig-2col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem}
+.fig-block{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;cursor:zoom-in;transition:all .3s;
+}
+.fig-block:hover{border-color:rgba(99,102,241,.5);transform:scale(1.015);box-shadow:0 12px 36px rgba(99,102,241,.18)}
+.fig-block img{width:100%;height:195px;object-fit:cover;object-position:top}
+.fig-lbl{padding:.7rem 1rem;font-size:.75rem;color:var(--muted)}
+.fig-lbl strong{display:block;color:var(--text);font-size:.8rem;margin-bottom:.15rem}
+
+/* ===== RISKS ===== */
+#risks{background:var(--bg)}
+.risks-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.threat-item{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:.85rem 1rem;margin-bottom:.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.threat-item h5{font-size:.83rem;margin-bottom:.15rem}
+.threat-item p{font-size:.72rem;color:var(--muted)}
+.gap-item{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:.9rem 1rem;margin-bottom:.55rem;
+  border-left:3px solid var(--primary);
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.gap-item.d{border-left-color:var(--danger)}.gap-item.w{border-left-color:var(--warn)}.gap-item.s{border-left-color:var(--success)}
+.gap-item h5{font-size:.83rem;margin-bottom:.2rem}
+.gap-item p{font-size:.72rem;color:var(--muted)}
+
+/* ===== GALLERY ===== */
+#gallery{background:var(--bg2)}
+.filter-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.fbtn{
+  padding:.38rem .9rem;font-size:.78rem;font-weight:500;
+  background:transparent;border:1px solid var(--border);border-radius:20px;
+  color:var(--muted);cursor:pointer;transition:all .2s;
+}
+.fbtn.active,.fbtn:hover{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.4);color:var(--text)}
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1rem}
+.gal-item{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;cursor:zoom-in;transition:all .3s;
+}
+.gal-item:hover{border-color:rgba(99,102,241,.45);transform:scale(1.018);box-shadow:0 12px 36px rgba(99,102,241,.15)}
+.gal-item img{width:100%;height:192px;object-fit:cover;object-position:top}
+.gal-cap{padding:.7rem .9rem;font-size:.74rem;color:var(--muted)}
+.gal-cap strong{display:block;font-size:.78rem;color:var(--text);margin-bottom:.15rem}
+
+/* ===== POLICY ===== */
+#policy{background:var(--bg)}
+.pol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:1.1rem}
+.pol-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .3s}
+.pol-card:hover{border-color:rgba(99,102,241,.4);transform:translateY(-2px)}
+.pol-hdr{padding:.9rem 1.1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.pol-hdr h4{font-size:.9rem;font-weight:600}
+.sev{font-size:.62rem;font-weight:700;letter-spacing:.08em;padding:.18rem .48rem;border-radius:4px}
+.sev.cr{background:rgba(239,68,68,.18);color:#f87171}
+.sev.hi{background:rgba(245,158,11,.18);color:#fbbf24}
+.sev.me{background:rgba(99,102,241,.18);color:#a5b4fc}
+.pol-body{padding:1.1rem}
+.pol-finding{
+  font-size:.8rem;color:var(--muted);margin-bottom:.75rem;
+  padding-left:.75rem;border-left:2px solid var(--danger);line-height:1.55;
+}
+.pol-rec{font-size:.83rem;line-height:1.55}
+
+/* ===== LIGHTBOX ===== */
+#lb{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.94);justify-content:center;align-items:center;padding:2rem;
+}
+#lb.open{display:flex}
+#lb img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:8px;box-shadow:0 0 70px rgba(99,102,241,.35)}
+#lb-close{
+  position:fixed;top:1.25rem;right:1.25rem;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;cursor:pointer;transition:background .2s;color:#fff;
+}
+#lb-close:hover{background:rgba(255,255,255,.2)}
+#lb-cap{
+  position:fixed;bottom:1.75rem;left:50%;transform:translateX(-50%);
+  font-size:.82rem;color:var(--muted);
+  background:rgba(14,14,34,.9);padding:.45rem 1.25rem;border-radius:20px;
+  border:1px solid var(--border);white-space:nowrap;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:3rem 1.5rem;text-align:center;
+}
+.foot-wrap{max-width:760px;margin:0 auto}
+.foot-logo{
+  font-size:.95rem;font-weight:700;margin-bottom:.75rem;
+  background:linear-gradient(135deg,var(--primary),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.foot-links{display:flex;gap:1.5rem;justify-content:center;list-style:none;margin:1rem 0;flex-wrap:wrap}
+.foot-links a{color:var(--muted);font-size:.82rem;transition:color .2s}
+.foot-links a:hover{color:var(--text)}
+.foot-copy{font-size:.74rem;color:var(--muted2);margin-top:.75rem}
+
+/* ===== SCROLL ANIM ===== */
+.fu{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.fu.vis{opacity:1;transform:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .about-split,.risks-split,.ml-split,.chart-2col,.fig-2col{grid-template-columns:1fr}
+  .pipeline{flex-direction:column}
+  .pipe-step{border-right:none;border-bottom:1px solid var(--border)}
+  .pipe-step:last-child{border-bottom:none}
+  .nav-links{display:none}
+  .nav-pill{display:none}
+}
+code{
+  font-family:'JetBrains Mono',monospace;font-size:.83em;
+  background:rgba(99,102,241,.14);padding:.1em .38em;border-radius:4px;color:var(--cyan);
+}
+</style>
+</head>
+<body>
+
+<!-- ███ NAV ███ -->
+<nav id="nav">
+  <div class="nav-logo">
+    <span class="nav-logo-hex">⬡</span>
+    DigiBankSec
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#methodology">Methods</a></li>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#ml">ML Models</a></li>
+    <li><a href="#risks">Risk &amp; Threats</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#policy">Policy</a></li>
+  </ul>
+  <span class="nav-pill">10k Respondents · AUC 1.000 · Attack Surface: HIGH</span>
+</nav>
+
+<!-- ███ HERO ███ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Cybersecurity Research &nbsp;·&nbsp; ML &nbsp;·&nbsp; Threat Intelligence</div>
+    <h1>Digital Banking <span class="grad">Cybersecurity</span><br>Risk, Trust &amp; Threat Intelligence</h1>
+    <p class="hero-sub">
+      An end-to-end research pipeline examining security behaviours, fraud patterns and trust dynamics 
+      across <strong>10,000 respondents</strong> — powered by XGBoost, Isolation Forest, K-Means, 
+      SHAP explainability, and a CVSS-inspired threat model. Population risk level: 
+      <span style="color:var(--warn);font-weight:600;">HIGH (65.7/100)</span>.
+    </p>
+    <div class="cta-row">
+      <a href="#findings" class="btn btn-primary">&#9654; Explore Findings</a>
+      <a href="https://github.com/gracious0102/digital-banking-security-trust" class="btn btn-ghost" target="_blank">⤢ GitHub Repository</a>
+    </div>
+  </div>
+</section>
+
+<!-- ███ STATS ███ -->
+<div id="stats">
+  <div class="stats-grid">
+    <div><div class="stat-val" data-count="10" data-sfx="k">0</div><div class="stat-lbl">Respondents</div></div>
+    <div><div class="stat-val" data-count="52">0</div><div class="stat-lbl">Features</div></div>
+    <div><div class="stat-val" data-count="31.9" data-dec="1" data-sfx="%">0</div><div class="stat-lbl">Fraud Incidence</div></div>
+    <div><div class="stat-val" data-count="65.7" data-dec="1">0</div><div class="stat-lbl">Attack Surface Score</div></div>
+    <div><div class="stat-val" data-count="1.000" data-dec="3">0</div><div class="stat-lbl">Fraud Classifier AUC</div></div>
+    <div><div class="stat-val" data-count="800">0</div><div class="stat-lbl">Anomalies Flagged</div></div>
+    <div><div class="stat-val" data-count="30">0</div><div class="stat-lbl">Generated Charts</div></div>
+    <div><div class="stat-val" data-count="62.6" data-dec="1" data-sfx="%">0</div><div class="stat-lbl">MFA Coverage</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ███ ABOUT ███ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-split fu">
+      <div>
+        <div class="stag">// About the Project</div>
+        <h2>Beyond the Survey: A Deep Cybersecurity Research Platform</h2>
+        <div class="about-text">
+          <p>Digital banking has concentrated financial identity, transaction history, and personal data onto mobile apps and payment platforms. When these systems fail — through phishing, account takeover, or SIM swap — the consequences fall hardest on the least-protected users.</p>
+          <p>This project goes beyond a 199-respondent survey baseline. By combining a <strong>correlated synthetic dataset at 10k scale</strong>, <strong>state-of-the-art ML</strong>, and <strong>CVSS-inspired cybersecurity modelling</strong>, it builds an evidence base that regulators, banks, and policymakers can act on.</p>
+        </div>
+        <ul class="feat-list">
+          <li>10,000-respondent dataset via a latent factor model with Cholesky-decomposed correlation structure</li>
+          <li>Cronbach's α, Spearman ρ, Mann-Whitney U, chi-square, Kruskal-Wallis statistical inference</li>
+          <li>XGBoost · Random Forest · Logistic Regression for fraud risk and trust prediction</li>
+          <li>K-Means user segmentation with silhouette analysis and PCA projection</li>
+          <li>Isolation Forest anomaly detection flagging hidden high-risk profiles</li>
+          <li>SHAP TreeExplainer: <code>security_posture_score</code> is the #1 fraud risk driver</li>
+          <li>CVSS-inspired channel risk matrix across 6 channels &times; 5 threat vectors</li>
+          <li>30 publication-quality charts · 16 CSV tables · 3 serialised ML models</li>
+        </ul>
+      </div>
+      <div>
+        <div class="info-card">
+          <div class="stag">// Author &amp; Context</div>
+          <h3 style="margin-bottom:.4rem">Grace Ibeji</h3>
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:.25rem">MS in Cybersecurity &amp; Public Policy portfolio project</p>
+          <p style="color:var(--muted);font-size:.82rem">Undergraduate dissertation extended into a production-grade, reproducible ML research pipeline with threat intelligence and policy framing.</p>
+          <div class="info-grid">
+            <div><div class="info-key">FOCUS</div><div class="info-val">Cybersecurity &amp; Policy</div></div>
+            <div><div class="info-key">REGION</div><div class="info-val">India (Primary)</div></div>
+            <div><div class="info-key">DATASET</div><div class="info-val">10,000 synthetic rows</div></div>
+            <div><div class="info-key">RISK LEVEL</div><div class="info-val" style="color:var(--warn)">⚠ HIGH (65.7/100)</div></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:1.25rem">
+          <div style="font-size:.68rem;color:var(--muted);letter-spacing:.08em;margin-bottom:1rem">SECURITY POSTURE SNAPSHOT</div>
+          <div class="bar-wrap">
+            <div class="bar-hdr"><span class="bar-lbl">MFA Coverage</span><span class="bar-num" style="color:var(--warn)">62.6%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:62.6%;background:linear-gradient(90deg,#d97706,#f59e0b)"></div></div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-hdr"><span class="bar-lbl">Platform Trust (Positive)</span><span class="bar-num" style="color:var(--danger)">30.3%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:30.3%;background:linear-gradient(90deg,#b91c1c,#ef4444)"></div></div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-hdr"><span class="bar-lbl">High Security Posture (&ge;70)</span><span class="bar-num" style="color:var(--warn)">41.1%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:41.1%;background:linear-gradient(90deg,#d97706,#f59e0b)"></div></div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-hdr"><span class="bar-lbl">Grievance Resolution (Positive)</span><span class="bar-num" style="color:var(--danger)">15.5%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:15.5%;background:linear-gradient(90deg,#b91c1c,#ef4444)"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ███ METHODOLOGY ███ -->
+<section id="methodology">
+  <div class="wrap">
+    <div class="stag">// Methodology</div>
+    <h2>Five-Phase Research Pipeline</h2>
+    <p class="lead">From correlated data generation through ML modelling to threat intelligence and evidence-based policy — fully reproducible and automated.</p>
+    <div class="pipeline fu">
+      <div class="pipe-step"><div class="pipe-icon">📊</div><div class="pipe-num">PHASE 01</div><div class="pipe-title">Data Generation</div><div class="pipe-desc">Latent factor model with Cholesky correlation. 10,000 rows, 52 features.</div></div>
+      <div class="pipe-step"><div class="pipe-icon">🔬</div><div class="pipe-num">PHASE 02</div><div class="pipe-title">Statistical Analysis</div><div class="pipe-desc">Cronbach α · Spearman ρ · Mann-Whitney U · Chi-square · Kruskal-Wallis</div></div>
+      <div class="pipe-step"><div class="pipe-icon">🛡️</div><div class="pipe-num">PHASE 03</div><div class="pipe-title">Cybersecurity</div><div class="pipe-desc">CVSS risk matrix · Threat actors · Gap priority · Cohort analysis</div></div>
+      <div class="pipe-step"><div class="pipe-icon">🤖</div><div class="pipe-num">PHASE 04</div><div class="pipe-title">Machine Learning</div><div class="pipe-desc">K-Means · XGBoost · Isolation Forest · SHAP · Cross-validation</div></div>
+      <div class="pipe-step"><div class="pipe-icon">📋</div><div class="pipe-num">PHASE 05</div><div class="pipe-title">Policy Reports</div><div class="pipe-desc">Severity-rated consumer-protection recommendations. Auto-generated.</div></div>
+    </div>
+    <div class="tabs fu">
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="schema">Dataset Schema</button>
+        <button class="tab-btn" data-tab="stats">Statistical Methods</button>
+        <button class="tab-btn" data-tab="mlmeth">ML Algorithms</button>
+        <button class="tab-btn" data-tab="cyber">Cybersecurity Methods</button>
+      </div>
+      <div class="tab-panel active" id="tab-schema">
+        <div class="card-grid">
+          <div class="card"><h3>Demographics (8)</h3><p style="color:var(--muted);font-size:.85rem">gender · age_group · education · occupation · income_bracket · region · bank_type · years_digital_banking</p></div>
+          <div class="card"><h3>Service Adoption (6)</h3><p style="color:var(--muted);font-size:.85rem">uses_mobile_banking · uses_internet_banking · uses_atm · uses_upi · uses_neft_rtgs · uses_aadhaar_pay</p></div>
+          <div class="card"><h3>Security Setup (7)</h3><p style="color:var(--muted);font-size:.85rem">has_mfa_enabled · uses_biometric_auth · uses_strong_password · regularly_updates_app · shared_device · device_type · os_type</p></div>
+          <div class="card"><h3>Incident History (5)</h3><p style="color:var(--muted);font-size:.85rem">has_experienced_fraud · fraud_type · reported_to_bank · fraud_resolved · num_phishing_attempts_received</p></div>
+          <div class="card"><h3>Security Perceptions (10 Likert)</h3><p style="color:var(--muted);font-size:.85rem">q_feel_secure · q_security_features · q_privacy_policy_clarity · q_mfa_effectiveness · q_data_breach_concern · q_incident_response_speed · q_third_party_concern · q_trust_platform · q_grievance_resolution · q_regulatory_trust</p></div>
+          <div class="card"><h3>Latent Factor Model</h3><p style="color:var(--muted);font-size:.85rem">Four latent Gaussian factors drawn from Cholesky-decomposed covariance matrix: <code>tech_savvy</code> · <code>risk_awareness</code> · <code>trust_disposition</code> · <code>fraud_exposure</code></p></div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-stats">
+        <div class="card-grid">
+          <div class="card"><h3>Cronbach's Alpha</h3><p style="color:var(--muted);font-size:.85rem">Scale reliability for SPT, literacy, and convenience sub-scales. Ensures composite scores are internally consistent before aggregation.</p></div>
+          <div class="card"><h3>Spearman Correlation</h3><p style="color:var(--muted);font-size:.85rem">Non-parametric correlation matrix for all SPT Likert items. Reveals how security perceptions, trust, and literacy co-vary without normality assumption.</p></div>
+          <div class="card"><h3>Mann-Whitney U</h3><p style="color:var(--muted);font-size:.85rem">Compares fraud victims vs non-victims on each SPT dimension. Effect size: rank-biserial correlation <em>r</em>. All dimensions significant (p&lt;0.001).</p></div>
+          <div class="card"><h3>Chi-Square + Cramér V</h3><p style="color:var(--muted);font-size:.85rem">Fraud incidence vs gender, age group, income bracket, region, and bank type. Identifies demographic predictors of fraud victimisation.</p></div>
+          <div class="card"><h3>Kruskal-Wallis + &eta;&sup2;</h3><p style="color:var(--muted);font-size:.85rem">Platform trust vs income brackets and regions. Quantifies how much trust variation is explained by segment membership.</p></div>
+          <div class="card"><h3>Security Posture Index</h3><p style="color:var(--muted);font-size:.85rem">0–100 composite from 8 protective behaviours. MFA (+20 pts) is the highest-weighted component — consistent with XGBoost SHAP findings.</p></div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-mlmeth">
+        <div class="card-grid">
+          <div class="card"><h3>K-Means Clustering (k=4)</h3><p style="color:var(--muted);font-size:.85rem">Segments users into 4 risk profiles. Optimal k via silhouette analysis over k∈{2…7}. Visualised via PCA projection (2 components). Profiles: Security-Conscious · Vulnerable · Skeptical · High-Risk.</p></div>
+          <div class="card"><h3>XGBoost Fraud Classifier</h3><p style="color:var(--muted);font-size:.85rem">Gradient boosted trees. n_estimators=300, max_depth=6, learning_rate=0.05, subsample=0.8. Stratified 5-fold CV. <strong>AUC-ROC = 1.000, F1 = 0.995</strong>.</p></div>
+          <div class="card"><h3>Random Forest</h3><p style="color:var(--muted);font-size:.85rem">300 trees, max_depth=12, balanced class weights. Provides both competitive predictions and feature importances for comparison with SHAP.</p></div>
+          <div class="card"><h3>Isolation Forest</h3><p style="color:var(--muted);font-size:.85rem">Unsupervised anomaly detection (contamination=8%). Flags 800 respondents with high exposure but insufficient protection — the hidden high-risk cohort.</p></div>
+          <div class="card"><h3>SHAP TreeExplainer</h3><p style="color:var(--muted);font-size:.85rem">Shapley values for the XGBoost fraud classifier. Global importance: mean |SHAP| per feature. <strong>Top driver: <code>security_posture_score</code></strong>.</p></div>
+          <div class="card"><h3>Trust Prediction (5-class)</h3><p style="color:var(--muted);font-size:.85rem"><code>q_trust_platform</code> mapped to 0–4 for XGBoost. Best model: Logistic Regression (F1=0.606) — genuine ambiguity in trust drivers reflects real-world complexity.</p></div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-cyber">
+        <div class="card-grid">
+          <div class="card"><h3>Channel Risk Matrix</h3><p style="color:var(--muted);font-size:.85rem">CVSS-inspired scoring across 5 threat vectors (attack surface · malware · phishing · account takeover · data exfiltration) for 6 banking channels. Weighted by adoption rate → population risk.</p></div>
+          <div class="card"><h3>Security Gap Priority</h3><p style="color:var(--muted);font-size:.85rem">Priority = severity (1–5, expert) × prevalence (%, data-derived). Top gap: No MFA (priority 1.85). Provides a ranked action list for regulators.</p></div>
+          <div class="card"><h3>Threat Actor Profiles</h3><p style="color:var(--muted);font-size:.85rem">5 archetypes: Phishing Operator · ATO Actor · Insider Threat · APT · Social Engineer. Each mapped to channels, TTPs, skill level, and motivation.</p></div>
+          <div class="card"><h3>Vulnerable Cohort Analysis</h3><p style="color:var(--muted);font-size:.85rem">Vulnerability flag: posture &lt;40 AND no MFA AND fraud history. Cross-tabulated across all demographic segments to surface highest-priority intervention groups.</p></div>
+          <div class="card"><h3>Population Attack Surface</h3><p style="color:var(--muted);font-size:.85rem">Σ(channel adoption × composite risk) across all channels, normalised to 0–100. Current score: <strong>65.7 → HIGH</strong>. Input for regulatory risk-tiering frameworks.</p></div>
+          <div class="card"><h3>SPT Composite Index</h3><p style="color:var(--muted);font-size:.85rem">Per-respondent mean across 10 Security-Privacy-Trust Likert items. Mean = 3.396 (where 1 = most positive, 5 = most negative). Only 3.9% of users score ≤2.0 on all dimensions.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ███ FINDINGS ███ -->
+<section id="findings">
+  <div class="wrap">
+    <div class="stag">// Key Findings</div>
+    <h2>Data-Driven Security Insights</h2>
+    <p class="lead">Interactive charts computed from the 10,000-respondent dataset by the analysis pipeline. Hover over bars for details.</p>
+    <div class="chart-2col fu">
+      <div class="chart-card">
+        <div class="chart-ttl">DIGITAL BANKING CHANNEL ADOPTION (%)</div>
+        <canvas id="cAdopt"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-ttl">SPT DIMENSIONS — POSITIVE RESPONSE RATES</div>
+        <canvas id="cSpt"></canvas>
+      </div>
+    </div>
+    <div class="chart-2col fu">
+      <div class="chart-card">
+        <div class="chart-ttl">FRAUD TYPE DISTRIBUTION (% of victims)</div>
+        <canvas id="cFraud"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-ttl">SECURITY POSTURE SCORE DISTRIBUTION</div>
+        <canvas id="cPosture"></canvas>
+      </div>
+    </div>
+    <div class="fu" style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-ttl">CHANNEL RISK vs ADOPTION — DUAL-AXIS (weighted risk score &amp; adoption %)</div>
+        <canvas id="cRisk" style="max-height:300px"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ███ ML ███ -->
+<section id="ml">
+  <div class="wrap">
+    <div class="stag">// Machine Learning Results</div>
+    <h2>Model Performance &amp; Insights</h2>
+    <p class="lead">Three model families with stratified 5-fold cross-validation. XGBoost dominates fraud classification; SHAP reveals <code>security_posture_score</code> as the #1 fraud risk driver.</p>
+    <div class="ml-metrics fu">
+      <div class="metric"><div class="mval s">1.000</div><div class="mlbl">Fraud AUC-ROC</div><div class="msub">XGBoost · n_est=300</div></div>
+      <div class="metric"><div class="mval s">0.995</div><div class="mlbl">Fraud F1-Score</div><div class="msub">Weighted · 5-fold CV</div></div>
+      <div class="metric"><div class="mval s">0.994</div><div class="mlbl">CV Accuracy</div><div class="msub">XGBoost · mean</div></div>
+      <div class="metric"><div class="mval p">4</div><div class="mlbl">Risk Segments</div><div class="msub">K-Means · k=4</div></div>
+      <div class="metric"><div class="mval w">800</div><div class="mlbl">Anomalies</div><div class="msub">Isolation Forest · 8.0%</div></div>
+      <div class="metric"><div class="mval c">0.606</div><div class="mlbl">Trust F1</div><div class="msub">LR best · 5-class</div></div>
+    </div>
+    <div class="ml-split fu">
+      <div>
+        <h3 style="margin-bottom:1rem">Fraud Risk Classifier — All Models</h3>
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="model-tbl">
+            <thead><tr><th>Model</th><th>Accuracy</th><th>F1</th><th>AUC-ROC</th><th>CV Acc.</th></tr></thead>
+            <tbody>
+              <tr><td>Logistic Regression</td><td>0.730</td><td>0.725</td><td>0.793</td><td>0.730</td></tr>
+              <tr><td>Random Forest</td><td>0.994</td><td>0.994</td><td>0.999</td><td>0.993</td></tr>
+              <tr style="background:rgba(16,185,129,.04)"><td><strong>XGBoost</strong> <span class="badge bs">Best</span></td><td class="best">0.995</td><td class="best">0.995</td><td class="best">1.000</td><td class="best">0.994</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3 style="margin-top:1.75rem;margin-bottom:.75rem">Trust Predictor — All Models</h3>
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="model-tbl">
+            <thead><tr><th>Model</th><th>Accuracy</th><th>F1</th><th>CV Acc.</th></tr></thead>
+            <tbody>
+              <tr style="background:rgba(16,185,129,.04)"><td><strong>Logistic Regression</strong> <span class="badge bs">Best F1</span></td><td class="best">0.607</td><td class="best">0.606</td><td class="best">0.605</td></tr>
+              <tr><td>Random Forest</td><td>0.576</td><td>0.553</td><td>0.571</td></tr>
+              <tr><td>XGBoost</td><td>0.582</td><td>0.569</td><td>0.579</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:.75rem">User Risk Segments (K-Means, k=4)</h3>
+        <div class="cluster-cards">
+          <div class="cc s"><h4>&#127749; Security-Conscious &amp; Trusting</h4><p>High MFA adoption, strong password hygiene, positive SPT. Lowest fraud rate. Policy target: maintain and reward.</p></div>
+          <div class="cc c"><h4>&#9889; Digitally Active but Vulnerable</h4><p>High usage intensity, moderate posture. Exposed without full protection. Priority: close the MFA gap.</p></div>
+          <div class="cc w"><h4>&#128700; Skeptical / Low-Adopter</h4><p>Low usage, moderate trust. Co-messaging opportunity: security and convenience together.</p></div>
+          <div class="cc d"><h4>&#128683; High-Risk / Fraud-Exposed</h4><p>Low posture, high fraud history, very low trust. Critical intervention cohort — top anomaly concentration.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="fig-2col fu">
+      <div class="fig-block" onclick="lb(this.querySelector('img').src,'K-Means Cluster Scatter — PCA Projection')"><img src="assets/images/cluster_scatter.png" alt="Cluster Scatter"><div class="fig-lbl"><strong>User Risk Segmentation</strong>K-Means clusters on PCA components — 4 distinct risk profiles emerge</div></div>
+      <div class="fig-block" onclick="lb(this.querySelector('img').src,'ROC Curves — Fraud Risk Classifier')"><img src="assets/images/roc_fraud_classifier.png" alt="ROC Curves"><div class="fig-lbl"><strong>ROC Curves — Fraud Classifier</strong>XGBoost achieves AUC = 1.000; all models evaluated on held-out test set</div></div>
+      <div class="fig-block" onclick="lb(this.querySelector('img').src,'SHAP Feature Importance — Fraud Risk Driver')"><img src="assets/images/shap_summary.png" alt="SHAP Summary"><div class="fig-lbl"><strong>SHAP Feature Importance</strong>security_posture_score is the dominant fraud risk driver (mean |SHAP|)</div></div>
+      <div class="fig-block" onclick="lb(this.querySelector('img').src,'Isolation Forest — Anomaly Distribution')"><img src="assets/images/anomaly_distribution.png" alt="Anomaly Detection"><div class="fig-lbl"><strong>Anomaly Detection</strong>Isolation Forest: 800 critical anomalies (8%) — high-exposure, low-protection users</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ███ RISKS ███ -->
+<section id="risks">
+  <div class="wrap">
+    <div class="stag">// Cybersecurity Analysis</div>
+    <h2>Threat Intelligence &amp; Risk Assessment</h2>
+    <p class="lead">CVSS-inspired threat modelling across 6 banking channels and 5 threat vectors. Population attack surface: <strong style="color:var(--warn)">65.7/100 — HIGH</strong>.</p>
+    <div class="risks-split fu">
+      <div>
+        <h3 style="margin-bottom:1.1rem">Weighted Risk Score by Channel</h3>
+        <div class="bar-wrap">
+          <div class="bar-hdr"><span class="bar-lbl">UPI / Digital Payments</span><span class="bar-num" style="color:var(--danger)">72.8</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:72.8%;background:linear-gradient(90deg,#b91c1c,#ef4444)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-hdr"><span class="bar-lbl">Mobile Banking App</span><span class="bar-num" style="color:var(--danger)">69.4</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:69.4%;background:linear-gradient(90deg,#b91c1c,#f87171)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-hdr"><span class="bar-lbl">Internet Banking</span><span class="bar-num" style="color:var(--warn)">52.5</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:52.5%;background:linear-gradient(90deg,#d97706,#f59e0b)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-hdr"><span class="bar-lbl">NEFT / RTGS</span><span class="bar-num" style="color:var(--primary)">38.2</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:38.2%;background:linear-gradient(90deg,var(--primary),#818cf8)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-hdr"><span class="bar-lbl">Aadhaar Pay</span><span class="bar-num" style="color:var(--muted)">34.1</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:34.1%;background:linear-gradient(90deg,var(--primary),#818cf8)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-hdr"><span class="bar-lbl">ATM Services</span><span class="bar-num" style="color:var(--muted)">31.4</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:31.4%;background:linear-gradient(90deg,var(--primary),#818cf8)"></div></div>
+        </div>
+        <h3 style="margin-top:2rem;margin-bottom:.85rem">Active Threat Actors</h3>
+        <div class="threat-item"><div><h5>Phishing Operator</h5><p>Smishing · Vishing · Fake UPI apps · OTP fraud</p></div><span class="badge bd">High</span></div>
+        <div class="threat-item"><div><h5>Account Takeover Actor</h5><p>Credential stuffing · SIM swap · Session hijack</p></div><span class="badge bd">High</span></div>
+        <div class="threat-item"><div><h5>Social Engineer</h5><p>Impersonation · Fake customer care</p></div><span class="badge bw">Medium</span></div>
+        <div class="threat-item"><div><h5>APT / Nation-State</h5><p>Supply chain · Zero-day · SWIFT targeting</p></div><span class="badge bi">Critical Infra</span></div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:.85rem">Security Gap Priority Matrix <span style="font-size:.75rem;color:var(--muted);font-weight:400">(severity × prevalence)</span></h3>
+        <div class="gap-item d"><div><h5>No MFA Enabled</h5><p>Severity 5 · ~37% prevalence · Priority 1.85</p></div><span class="badge bd">Urgent</span></div>
+        <div class="gap-item d"><div><h5>No Fraud Reported After Incident</h5><p>Severity 5 · ~28% of victims don't report · Priority 1.40</p></div><span class="badge bd">Urgent</span></div>
+        <div class="gap-item w"><div><h5>Low Phishing Awareness</h5><p>Severity 4 · ~35% prevalence · Priority 1.40</p></div><span class="badge bw">High</span></div>
+        <div class="gap-item w"><div><h5>App Not Regularly Updated</h5><p>Severity 3 · ~47% prevalence · Priority 1.41</p></div><span class="badge bw">High</span></div>
+        <div class="gap-item w"><div><h5>Weak Password Hygiene</h5><p>Severity 4 · high prevalence · Priority 1.2</p></div><span class="badge bw">High</span></div>
+        <div class="gap-item" style="border-left-color:var(--primary)"><div><h5>Shared Device Usage</h5><p>Severity 4 · ~22% prevalence · Priority 0.88</p></div><span class="badge bi">Medium</span></div>
+        <div style="margin-top:1.5rem">
+          <div class="fig-block" onclick="lb(this.querySelector('img').src,'Channel Threat Vector Heatmap (CVSS-inspired)')"><img src="assets/images/channel_risk_heatmap.png" alt="Risk Heatmap" style="height:185px"><div class="fig-lbl"><strong>Channel Threat Vector Heatmap</strong>5 threat vectors × 6 banking channels — phishing and account takeover dominate UPI and mobile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fig-2col fu" style="margin-top:2rem">
+      <div class="fig-block" onclick="lb(this.querySelector('img').src,'Security Gap Priority Matrix')"><img src="assets/images/security_gap_matrix.png" alt="Gap Matrix"><div class="fig-lbl"><strong>Security Gap Priority Matrix</strong>Severity × Prevalence — ranked action list for regulators</div></div>
+      <div class="fig-block" onclick="lb(this.querySelector('img').src,'Vulnerable User Cohorts by Demographic Segment')"><img src="assets/images/vulnerable_cohorts.png" alt="Vulnerable Cohorts"><div class="fig-lbl"><strong>Vulnerable User Cohorts</strong>Low posture + no MFA + fraud history — priority intervention segments</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ███ GALLERY ███ -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="stag">// Output Gallery</div>
+    <h2>30 Auto-Generated Charts</h2>
+    <p class="lead">Every figure produced automatically by the pipeline from the 10,000-respondent dataset. Click any chart to view full size.</p>
+    <div class="filter-row">
+      <button class="fbtn active" data-f="all">All (30)</button>
+      <button class="fbtn" data-f="cyber">Cybersecurity</button>
+      <button class="fbtn" data-f="ml">Machine Learning</button>
+      <button class="fbtn" data-f="descriptive">Descriptive</button>
+    </div>
+    <div class="gal-grid">
+      <!-- Cybersecurity -->
+      <div class="gal-item" data-cat="cyber" onclick="lbg(this)"><img src="assets/images/channel_risk_bubble.png" loading="lazy" alt=""><div class="gal-cap"><strong>Attack Surface Bubble Chart</strong>Adoption vs Risk — bubble = weighted score</div></div>
+      <div class="gal-item" data-cat="cyber" onclick="lbg(this)"><img src="assets/images/channel_risk_heatmap.png" loading="lazy" alt=""><div class="gal-cap"><strong>Threat Vector Heatmap</strong>CVSS-inspired · 6 channels × 5 vectors</div></div>
+      <div class="gal-item" data-cat="cyber" onclick="lbg(this)"><img src="assets/images/security_gap_matrix.png" loading="lazy" alt=""><div class="gal-cap"><strong>Security Gap Priority Matrix</strong>Severity × Prevalence</div></div>
+      <div class="gal-item" data-cat="cyber" onclick="lbg(this)"><img src="assets/images/attack_surface_summary.png" loading="lazy" alt=""><div class="gal-cap"><strong>Population Attack Surface</strong>Risk: HIGH (65.7/100)</div></div>
+      <div class="gal-item" data-cat="cyber" onclick="lbg(this)"><img src="assets/images/vulnerable_cohorts.png" loading="lazy" alt=""><div class="gal-cap"><strong>Vulnerable Cohorts</strong>High-risk segments by demographic</div></div>
+      <div class="gal-item" data-cat="cyber" onclick="lbg(this)"><img src="assets/images/spt_correlation_heatmap.png" loading="lazy" alt=""><div class="gal-cap"><strong>Spearman Correlation Matrix</strong>SPT dimensions inter-correlation</div></div>
+      <!-- ML -->
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/cluster_scatter.png" loading="lazy" alt=""><div class="gal-cap"><strong>K-Means Cluster Scatter</strong>PCA projection · 4 risk segments</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/cluster_profiles.png" loading="lazy" alt=""><div class="gal-cap"><strong>Cluster Profile Heatmap</strong>Security &amp; trust by segment</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/cluster_selection.png" loading="lazy" alt=""><div class="gal-cap"><strong>Silhouette &amp; Elbow</strong>Optimal k selection</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/roc_fraud_classifier.png" loading="lazy" alt=""><div class="gal-cap"><strong>ROC Curves</strong>XGBoost AUC = 1.000</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/shap_summary.png" loading="lazy" alt=""><div class="gal-cap"><strong>SHAP Feature Importance</strong>Top fraud risk drivers</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/fraud_feature_importance.png" loading="lazy" alt=""><div class="gal-cap"><strong>RF Feature Importance</strong>Fraud classification</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/trust_feature_importance.png" loading="lazy" alt=""><div class="gal-cap"><strong>Trust Feature Importance</strong>Trust prediction drivers</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/fraud_model_comparison.png" loading="lazy" alt=""><div class="gal-cap"><strong>Fraud Model Comparison</strong>LR vs RF vs XGBoost</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/trust_model_comparison.png" loading="lazy" alt=""><div class="gal-cap"><strong>Trust Model Comparison</strong>LR vs RF vs XGBoost</div></div>
+      <div class="gal-item" data-cat="ml" onclick="lbg(this)"><img src="assets/images/anomaly_distribution.png" loading="lazy" alt=""><div class="gal-cap"><strong>Anomaly Detection</strong>800 anomalies · 8.0%</div></div>
+      <!-- Descriptive -->
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/spt_summary.png" loading="lazy" alt=""><div class="gal-cap"><strong>SPT Dimension Summary</strong>Positive response rates</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/service_adoption.png" loading="lazy" alt=""><div class="gal-cap"><strong>Channel Adoption</strong>Mobile Banking leads at 87.1%</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/security_posture.png" loading="lazy" alt=""><div class="gal-cap"><strong>Security Posture Index</strong>Distribution &amp; regional breakdown</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/fraud_profile.png" loading="lazy" alt=""><div class="gal-cap"><strong>Fraud Profile</strong>Types &amp; regional incidence</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/likert_diverging.png" loading="lazy" alt=""><div class="gal-cap"><strong>Diverging Likert Chart</strong>SPT response distributions</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/spt_index_distribution.png" loading="lazy" alt=""><div class="gal-cap"><strong>SPT Index Distribution</strong>Mean score per respondent</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_age_group.png" loading="lazy" alt=""><div class="gal-cap"><strong>Age Group Distribution</strong>Demographic breakdown</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_income_bracket.png" loading="lazy" alt=""><div class="gal-cap"><strong>Income Distribution</strong>Monthly bracket breakdown</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_region.png" loading="lazy" alt=""><div class="gal-cap"><strong>Regional Distribution</strong>Metro to Rural breakdown</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_bank_type.png" loading="lazy" alt=""><div class="gal-cap"><strong>Bank Type Distribution</strong>Public vs Private sector</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_occupation.png" loading="lazy" alt=""><div class="gal-cap"><strong>Occupation Profile</strong>Student to Self-Employed</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_education.png" loading="lazy" alt=""><div class="gal-cap"><strong>Education Level</strong>High School to Doctoral</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_gender.png" loading="lazy" alt=""><div class="gal-cap"><strong>Gender Distribution</strong>Survey demographics</div></div>
+      <div class="gal-item" data-cat="descriptive" onclick="lbg(this)"><img src="assets/images/demo_years_digital_banking.png" loading="lazy" alt=""><div class="gal-cap"><strong>Years Using Digital Banking</strong>Histogram distribution</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ███ POLICY ███ -->
+<section id="policy">
+  <div class="wrap">
+    <div class="stag">// Policy Recommendations</div>
+    <h2>Consumer Protection &amp; Digital Governance</h2>
+    <p class="lead">Six evidence-based recommendations derived directly from ML findings, statistical tests, and cybersecurity analysis — severity-rated for regulator prioritisation.</p>
+    <div class="pol-grid fu">
+      <div class="pol-card"><div class="pol-hdr"><h4>Multi-Factor Authentication</h4><span class="sev cr">CRITICAL</span></div><div class="pol-body"><div class="pol-finding">Only 62.6% of users have MFA enabled. SHAP analysis identifies it as the #1 fraud risk driver. Top security gap by priority score (1.85).</div><div class="pol-rec">Mandate MFA for all transactions &gt;₹5,000. Require banks to default-enable MFA for new accounts with opt-out only after verified literacy training.</div></div></div>
+      <div class="pol-card"><div class="pol-hdr"><h4>Fraud Incident Response</h4><span class="sev cr">CRITICAL</span></div><div class="pol-body"><div class="pol-finding">31.9% experienced fraud. Grievance resolution scores only 15.5% positive — the weakest trust driver. ~28% of victims never report to their bank.</div><div class="pol-rec">Legislate 48-hour mandatory acknowledgement and 15-day resolution SLA for digital fraud complaints with public bank-wise performance dashboards.</div></div></div>
+      <div class="pol-card"><div class="pol-hdr"><h4>Data Privacy &amp; Transparency</h4><span class="sev hi">HIGH</span></div><div class="pol-body"><div class="pol-finding">Privacy policy clarity and third-party data sharing concern are among the weakest SPT dimensions — Mann-Whitney U confirms fraud victims score significantly worse.</div><div class="pol-rec">Require plain-language data disclosures, granular consent dashboards, and real-time third-party data-sharing audit logs accessible to users.</div></div></div>
+      <div class="pol-card"><div class="pol-hdr"><h4>Cybersecurity Literacy</h4><span class="sev hi">HIGH</span></div><div class="pol-body"><div class="pol-finding">Low phishing awareness and password hygiene are high-ranking SHAP features in the fraud classifier. Chi-square shows significant association with fraud victimisation by education level.</div><div class="pol-rec">Mandate bank-funded in-app phishing simulation training. Integrate cyber-hygiene into school curricula, university onboarding, and RBI consumer awareness campaigns.</div></div></div>
+      <div class="pol-card"><div class="pol-hdr"><h4>Regulatory Oversight</h4><span class="sev me">MEDIUM</span></div><div class="pol-body"><div class="pol-finding">Regulatory trust is fragmented — Kruskal-Wallis confirms significant variation across income brackets and regions. Rural and lower-income cohorts show lowest confidence.</div><div class="pol-rec">Establish an independent Digital Banking Ombudsman with publicly accessible incident dashboards, quarterly performance reporting, and regional outreach offices.</div></div></div>
+      <div class="pol-card"><div class="pol-hdr"><h4>Shared-Device &amp; ATM Security</h4><span class="sev me">MEDIUM</span></div><div class="pol-body"><div class="pol-finding">~22% access digital banking on shared devices. Isolation Forest flags Tier-2/3 ATM users as an overrepresented anomaly cohort. Shared-device gap priority: 0.88.</div><div class="pol-rec">Enforce automatic session expiry (&lt;2 min inactivity), device-fingerprinting fraud alerts, and mandatory EMV chip adoption for all ATM cards.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-wrap">
+    <div class="foot-logo">Digital Banking Cybersecurity · Risk, Trust &amp; Threat Intelligence</div>
+    <p style="color:var(--muted);font-size:.85rem;line-height:1.65">End-to-end reproducible research pipeline · 10,000 respondents · 52 features · XGBoost AUC=1.000 · 30 charts · MIT License</p>
+    <ul class="foot-links">
+      <li><a href="https://github.com/gracious0102/digital-banking-security-trust" target="_blank">GitHub Repository</a></li>
+      <li><a href="https://github.com/gracious0102/digital-banking-security-trust/blob/main/outputs/reports/analysis_summary.md" target="_blank">Analysis Report</a></li>
+      <li><a href="https://github.com/gracious0102/digital-banking-security-trust/blob/main/outputs/reports/policy_recommendations.md" target="_blank">Policy Brief</a></li>
+      <li><a href="https://github.com/gracious0102/digital-banking-security-trust/blob/main/README.md" target="_blank">README</a></li>
+    </ul>
+    <div class="foot-copy">© 2026 Grace Ibeji · All dataset contents are fully synthetic — no real respondent PII</div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="lbClose(event)">
+  <div id="lb-close" onclick="lbClose({target:{id:'lb-close'}})">✕</div>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-cap"></div>
+</div>
+
+<script>
+// ===== COUNTERS =====
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      if(e.target.id==='stats') e.target.querySelectorAll('[data-count]').forEach(animCount);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+obs.observe(document.getElementById('stats'));
+
+function animCount(el){
+  const tgt=parseFloat(el.dataset.count);
+  const dec=parseInt(el.dataset.dec||0);
+  const sfx=el.dataset.sfx||'';
+  const dur=1800;const t0=performance.now();
+  (function step(now){
+    const p=Math.min((now-t0)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=((tgt*e).toFixed(dec))+sfx;
+    if(p<1)requestAnimationFrame(step);
+  })(t0);
+}
+
+// ===== TABS =====
+document.querySelectorAll('.tab-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const id=b.dataset.tab;
+    b.closest('.tabs').querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+    b.closest('.tabs').querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('tab-'+id).classList.add('active');
+  });
+});
+
+// ===== GALLERY FILTER =====
+document.querySelectorAll('.fbtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const f=b.dataset.f;
+    document.querySelectorAll('.gal-item').forEach(i=>{
+      i.style.display=(f==='all'||i.dataset.cat===f)?'block':'none';
+    });
+  });
+});
+
+// ===== LIGHTBOX =====
+function lb(src,cap){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-cap').textContent=cap||'';
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function lbg(item){
+  const img=item.querySelector('img');
+  const cap=item.querySelector('.gal-cap strong')?.textContent||item.querySelector('.fig-lbl strong')?.textContent||'';
+  lb(img.src,cap);
+}
+function lbClose(e){
+  if(!e||['lb','lb-close'].includes(e.target?.id)){
+    document.getElementById('lb').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lbClose({target:{id:'lb'}})});
+
+// ===== NAV SCROLL =====
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.boxShadow=
+    scrollY>10?'0 4px 30px rgba(0,0,0,.6)':'none';
+});
+
+// ===== CHARTS =====
+Chart.defaults.color='#8892a4';
+Chart.defaults.borderColor='rgba(255,255,255,.06)';
+Chart.defaults.font.family='Inter, sans-serif';
+Chart.defaults.font.size=11;
+
+// 1. Adoption
+new Chart(document.getElementById('cAdopt'),{
+  type:'bar',
+  data:{
+    labels:['Mobile Banking','UPI / Pay','Internet Banking','ATM','NEFT / RTGS','Aadhaar Pay'],
+    datasets:[{
+      data:[87.1,78.4,65.3,57.2,48.1,27.6],
+      backgroundColor:['rgba(99,102,241,.85)','rgba(99,102,241,.75)','rgba(99,102,241,.65)','rgba(34,211,238,.6)','rgba(34,211,238,.5)','rgba(34,211,238,.4)'],
+      borderRadius:6,borderSkipped:false,
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+'%'}}},
+    scales:{y:{max:100,ticks:{callback:v=>v+'%'},grid:{color:'rgba(255,255,255,.04)'}},x:{grid:{display:false}}}}
+});
+
+// 2. SPT
+new Chart(document.getElementById('cSpt'),{
+  type:'bar',
+  data:{
+    labels:['Feel Secure','Security Features','Privacy Clarity','MFA Effectiveness','Platform Trust','Grievance Res.','Regulatory Trust'],
+    datasets:[{
+      data:[32.1,28.7,24.3,35.2,30.3,15.5,26.8],
+      backgroundColor:['rgba(34,211,238,.75)','rgba(34,211,238,.7)','rgba(34,211,238,.65)','rgba(34,211,238,.7)','rgba(124,58,237,.75)','rgba(239,68,68,.85)','rgba(124,58,237,.7)'],
+      borderRadius:6,borderSkipped:false,
+    }]
+  },
+  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+'% positive'}}},
+    scales:{x:{max:60,ticks:{callback:v=>v+'%'},grid:{color:'rgba(255,255,255,.04)'}},y:{grid:{display:false}}}}
+});
+
+// 3. Fraud donut
+new Chart(document.getElementById('cFraud'),{
+  type:'doughnut',
+  data:{
+    labels:['Phishing','Unauth. Transaction','Account Takeover','Social Engineering','SIM Swap'],
+    datasets:[{
+      data:[38,25,20,10,7],
+      backgroundColor:['rgba(239,68,68,.88)','rgba(245,158,11,.88)','rgba(99,102,241,.88)','rgba(34,211,238,.88)','rgba(16,185,129,.88)'],
+      borderWidth:2,borderColor:'#1c1c38',hoverOffset:6,
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{position:'bottom',labels:{boxWidth:11,padding:10}},
+      tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw}% of victims`}}
+    },
+    cutout:'62%'
+  }
+});
+
+// 4. Posture histogram
+new Chart(document.getElementById('cPosture'),{
+  type:'bar',
+  data:{
+    labels:['0–20','20–40','40–60','60–70','70–80','80–100'],
+    datasets:[{
+      label:'% of respondents',
+      data:[4.2,15.8,21.3,17.6,23.4,17.7],
+      backgroundColor:['rgba(239,68,68,.85)','rgba(239,68,68,.65)','rgba(245,158,11,.75)','rgba(245,158,11,.6)','rgba(16,185,129,.7)','rgba(16,185,129,.88)'],
+      borderRadius:6,borderSkipped:false,
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+'% of population'}}},
+    scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'rgba(255,255,255,.04)'}},
+      x:{title:{display:true,text:'Security Posture Score Range'},grid:{display:false}}}}
+});
+
+// 5. Risk dual-axis
+new Chart(document.getElementById('cRisk'),{
+  type:'bar',
+  data:{
+    labels:['UPI / Payments','Mobile Banking','Internet Banking','NEFT/RTGS','Aadhaar Pay','ATM'],
+    datasets:[
+      {label:'Weighted Risk Score',data:[72.8,69.4,52.5,38.2,34.1,31.4],backgroundColor:'rgba(239,68,68,.75)',borderRadius:5,borderSkipped:false,yAxisID:'y'},
+      {label:'Adoption %',data:[78.4,87.1,65.3,48.1,27.6,57.2],backgroundColor:'rgba(34,211,238,.45)',borderRadius:5,borderSkipped:false,yAxisID:'y1'},
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{position:'top',labels:{boxWidth:12,padding:14}}},
+    scales:{
+      y:{position:'left',title:{display:true,text:'Risk Score (0–100)'},max:100,grid:{color:'rgba(255,255,255,.04)'}},
+      y1:{position:'right',title:{display:true,text:'Adoption (%)'},max:100,grid:{drawOnChartArea:false}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>
