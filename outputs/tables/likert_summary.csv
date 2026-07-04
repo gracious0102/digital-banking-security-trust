@@ -1,0 +1,13 @@
+question,column,mean_score,strongly_agree_pct,positive_pct,neutral_pct,negative_pct
+24/7 transaction availability,q24_7_availability,1.44,81.4,86.9,5.5,7.5
+Saves time vs branch visits,q_saves_time,1.33,87.9,90.5,3.0,6.5
+Easy to access and navigate,q_easy_access,1.37,80.9,91.5,3.0,5.5
+Reduced need to visit branch,q_reduced_branch_visits,1.36,82.4,90.5,3.5,6.0
+Feeling of security,q_feel_secure,1.45,73.9,88.9,6.0,5.0
+Adequacy of security features,q_security_features,1.45,79.4,88.4,3.5,8.0
+Trust in digital platform,q_trust_platform,1.41,81.4,88.4,4.5,7.0
+Speed and efficiency,q_speed_efficiency,1.23,88.9,92.5,4.0,3.5
+User-friendly interface,q_user_friendly,1.41,77.4,92.0,2.0,6.0
+Timely grievance resolution,q_grievance_resolution,1.5,76.9,85.9,5.5,8.5
+Overall satisfaction,q_overall_satisfaction,1.35,84.9,89.4,3.5,7.0
+Improved banking experience,q_improved_experience,1.38,83.4,88.4,5.5,6.0

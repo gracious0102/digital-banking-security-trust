@@ -1,0 +1,5 @@
+question,column,mean_score,strongly_agree_pct,positive_pct,neutral_pct,negative_pct
+Feeling of security,q_feel_secure,1.45,73.9,88.9,6.0,5.0
+Adequacy of security features,q_security_features,1.45,79.4,88.4,3.5,8.0
+Trust in digital platform,q_trust_platform,1.41,81.4,88.4,4.5,7.0
+Timely grievance resolution,q_grievance_resolution,1.5,76.9,85.9,5.5,8.5
