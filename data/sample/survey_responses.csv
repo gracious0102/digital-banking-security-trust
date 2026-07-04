@@ -1,0 +1,200 @@
+respondent_id,gender,age_group,education,occupation,usage_frequency,uses_mobile_banking,uses_internet_banking,uses_atm,uses_upi,q24_7_availability,q_saves_time,q_easy_access,q_reduced_branch_visits,q_feel_secure,q_security_features,q_trust_platform,q_speed_efficiency,q_user_friendly,q_grievance_resolution,q_overall_satisfaction,q_improved_experience
+1,Female,Below 25,Graduate,Salaried Employee,Daily,True,False,True,False,1,1,3,1,1,1,1,1,1,1,2,1
+2,Male,25-35,Graduate,Self-Employed,Daily,True,True,False,True,1,1,1,1,1,1,1,1,1,1,3,1
+3,Female,36-45,Higher Secondary,Salaried Employee,Weekly,True,True,True,False,1,1,1,1,1,4,1,1,1,4,1,1
+4,Female,Below 25,Postgraduate,Student,Weekly,False,True,True,True,3,1,1,1,1,1,1,1,1,2,1,1
+5,Male,Below 25,Postgraduate,Salaried Employee,Weekly,True,True,False,True,1,1,1,1,3,2,1,1,4,1,3,1
+6,Prefer not to say,Below 25,Higher Secondary,Business Owner,Daily,True,False,True,True,1,1,1,1,1,1,1,1,1,1,5,1
+7,Female,Below 25,Others,Salaried Employee,Weekly,True,True,True,False,1,1,2,1,1,1,2,1,1,1,1,1
+8,Female,Below 25,Postgraduate,Self-Employed,Weekly,True,True,True,True,1,1,1,5,1,5,1,1,1,1,1,1
+9,Male,25-35,Higher Secondary,Salaried Employee,Daily,True,False,True,False,1,1,1,1,3,2,1,1,1,2,1,5
+10,Male,Below 25,Postgraduate,Business Owner,Daily,True,False,False,True,1,1,1,1,1,1,1,1,5,1,1,5
+11,Male,Below 25,Higher Secondary,Student,Weekly,True,True,True,True,1,1,1,1,1,1,1,1,1,2,1,5
+12,Female,25-35,Others,Salaried Employee,Daily,False,True,True,False,1,1,1,1,4,1,1,1,1,1,1,1
+13,Female,Below 25,Graduate,Student,Daily,True,True,True,True,1,4,3,1,4,1,1,1,3,1,1,1
+14,Female,Below 25,Graduate,Student,Rarely,True,True,False,True,1,1,2,1,1,2,5,1,1,5,1,1
+15,Male,25-35,Higher Secondary,Salaried Employee,Daily,True,True,True,False,1,1,1,1,1,5,1,1,1,3,1,1
+16,Male,25-35,Postgraduate,Self-Employed,Daily,True,True,False,True,1,2,1,2,1,1,2,3,1,3,1,1
+17,Female,25-35,Higher Secondary,Self-Employed,Rarely,True,False,False,True,1,1,1,1,1,1,1,1,1,4,1,1
+18,Male,Below 25,Higher Secondary,Student,Daily,True,False,False,True,1,1,1,1,1,1,1,3,1,1,1,1
+19,Female,Below 25,Higher Secondary,Salaried Employee,Daily,False,True,False,True,1,1,1,1,1,1,1,2,2,1,1,1
+20,Female,25-35,Graduate,Salaried Employee,Monthly,True,True,False,False,1,1,1,1,1,1,1,1,1,1,1,1
+21,Female,Below 25,Higher Secondary,Student,Weekly,True,True,False,False,1,1,1,1,1,1,1,3,2,1,1,1
+22,Male,Below 25,Postgraduate,Student,Daily,True,True,True,True,1,1,5,3,1,1,1,1,2,1,1,1
+23,Female,Below 25,Graduate,Student,Weekly,False,True,False,False,1,1,1,1,1,1,1,1,2,4,1,2
+24,Female,25-35,Higher Secondary,Salaried Employee,Daily,True,True,True,True,2,1,2,5,3,1,1,1,1,1,1,1
+25,Female,36-45,Higher Secondary,Student,Daily,True,False,True,True,1,1,1,1,2,1,1,1,1,1,1,1
+26,Male,Below 25,Higher Secondary,Self-Employed,Weekly,False,True,False,True,1,1,3,1,1,2,1,1,1,1,1,1
+27,Male,25-35,Graduate,Student,Daily,True,True,False,False,1,1,1,1,1,1,2,1,1,1,1,1
+28,Male,Below 25,Postgraduate,Self-Employed,Weekly,False,True,False,True,1,1,1,1,1,1,1,1,1,1,4,1
+29,Male,Below 25,Higher Secondary,Student,Weekly,True,False,True,True,1,1,3,1,1,1,1,1,1,1,1,1
+30,Female,25-35,Postgraduate,Salaried Employee,Daily,True,True,True,True,3,1,4,1,1,1,1,1,1,1,1,1
+31,Female,Below 25,Higher Secondary,Student,Weekly,True,True,True,False,1,1,1,1,2,1,1,1,1,1,1,1
+32,Female,Below 25,Postgraduate,Student,Daily,False,False,True,True,1,1,1,3,2,1,4,1,1,3,1,1
+33,Male,Below 25,Postgraduate,Salaried Employee,Weekly,True,True,True,True,1,1,1,1,3,1,1,1,1,1,1,3
+34,Male,36-45,Graduate,Business Owner,Daily,True,True,True,False,1,1,1,1,2,3,1,1,1,1,1,1
+35,Male,Below 25,Graduate,Salaried Employee,Weekly,True,False,True,True,1,1,1,1,4,1,1,1,1,1,1,1
+36,Male,25-35,Postgraduate,Student,Daily,True,True,False,True,1,1,2,1,1,1,1,1,1,1,1,1
+37,Male,25-35,Higher Secondary,Student,Daily,True,True,True,True,1,1,1,2,3,1,1,1,2,1,1,1
+38,Female,Below 25,Higher Secondary,Student,Weekly,True,True,False,True,3,1,1,1,1,4,1,1,2,5,1,1
+39,Male,25-35,Higher Secondary,Student,Weekly,False,True,True,True,1,1,1,1,1,5,1,1,1,1,2,1
+40,Female,Below 25,Graduate,Salaried Employee,Daily,True,False,True,False,1,1,1,1,1,1,1,1,1,1,1,1
+41,Male,Below 25,Graduate,Salaried Employee,Weekly,True,True,True,True,5,1,1,1,1,1,1,1,1,1,1,1
+42,Female,25-35,Graduate,Salaried Employee,Rarely,True,True,True,True,1,1,1,1,1,1,1,1,1,2,1,1
+43,Female,25-35,Postgraduate,Business Owner,Daily,True,True,False,False,1,1,1,2,1,2,2,1,1,1,1,1
+44,Male,Below 25,Higher Secondary,Salaried Employee,Daily,True,True,True,True,1,1,1,1,1,1,1,1,1,1,1,3
+45,Female,Below 25,Graduate,Salaried Employee,Daily,True,True,True,True,1,1,4,1,1,1,1,1,2,3,1,1
+46,Female,Below 25,Higher Secondary,Student,Weekly,True,True,False,False,1,1,1,1,3,1,1,1,3,1,1,4
+47,Male,25-35,Higher Secondary,Student,Daily,True,False,False,True,1,4,2,1,1,1,1,1,2,1,1,1
+48,Male,Below 25,Graduate,Salaried Employee,Daily,True,True,True,True,1,1,1,4,1,2,1,1,1,1,4,1
+49,Female,Below 25,Others,Business Owner,Daily,True,True,True,False,1,1,1,1,1,1,1,1,1,1,1,1
+50,Male,Below 25,Graduate,Student,Weekly,True,True,True,True,1,1,1,1,1,1,5,1,5,5,1,3
+51,Male,Below 25,Higher Secondary,Student,Daily,True,True,True,True,1,1,1,1,1,1,1,1,1,1,1,1
+52,Male,25-35,Graduate,Salaried Employee,Weekly,True,True,True,True,1,1,1,1,2,1,1,1,1,1,1,1
+53,Female,25-35,Higher Secondary,Student,Daily,True,True,True,True,4,1,1,5,1,1,1,4,1,1,1,1
+54,Female,Below 25,Postgraduate,Student,Monthly,False,True,False,True,1,3,1,1,1,1,1,1,1,1,1,1
+55,Female,Below 25,Graduate,Business Owner,Daily,True,False,True,True,1,5,1,1,1,2,1,1,1,2,1,1
+56,Female,Below 25,Higher Secondary,Salaried Employee,Daily,True,False,True,False,1,1,1,1,1,1,1,1,1,1,1,1
+57,Male,25-35,Higher Secondary,Student,Weekly,True,True,True,False,1,1,1,1,2,1,3,2,1,2,1,1
+58,Female,25-35,Higher Secondary,Business Owner,Monthly,True,True,False,False,1,1,1,1,1,1,1,1,1,1,1,2
+59,Male,Below 25,Others,Student,Daily,True,True,True,True,1,1,1,1,2,1,1,2,1,1,1,1
+60,Male,Below 25,Graduate,Business Owner,Daily,True,True,False,True,1,1,1,1,1,1,1,1,1,1,1,1
+61,Female,Below 25,Postgraduate,Student,Weekly,True,True,False,True,3,5,1,1,2,1,5,1,1,2,1,1
+62,Male,Below 25,Graduate,Student,Weekly,False,False,True,True,1,1,1,1,1,1,1,1,2,1,1,1
+63,Female,25-35,Graduate,Student,Daily,True,False,True,False,1,1,1,1,2,2,1,1,1,1,1,1
+64,Female,Below 25,Higher Secondary,Student,Daily,True,False,True,True,2,1,1,1,5,1,3,1,1,1,4,3
+65,Female,Below 25,Others,Business Owner,Weekly,True,True,True,True,5,1,1,1,1,1,1,2,1,1,1,1
+66,Female,25-35,Higher Secondary,Student,Weekly,False,False,False,False,1,1,4,1,2,1,2,1,1,1,1,1
+67,Female,Below 25,Graduate,Student,Weekly,True,True,True,True,1,5,1,1,1,2,1,4,2,1,1,1
+68,Male,Below 25,Graduate,Student,Daily,True,True,False,True,1,1,3,1,1,1,1,1,1,2,1,1
+69,Male,Below 25,Graduate,Salaried Employee,Daily,True,True,True,True,1,1,1,1,3,1,1,1,1,1,1,1
+70,Male,Below 25,Others,Salaried Employee,Monthly,True,False,True,True,1,1,1,1,1,4,1,1,1,1,1,1
+71,Male,Below 25,Higher Secondary,Others,Weekly,False,True,True,False,5,4,1,1,1,1,1,1,1,1,1,4
+72,Male,Below 25,Graduate,Student,Weekly,True,False,True,True,5,1,1,1,1,1,1,1,5,1,1,1
+73,Female,Below 25,Graduate,Student,Daily,True,True,True,False,1,1,5,2,1,1,1,1,1,1,1,1
+74,Male,Below 25,Graduate,Student,Daily,True,False,True,False,1,1,1,1,2,1,1,1,4,1,1,1
+75,Male,Below 25,Higher Secondary,Student,Weekly,True,True,True,False,2,1,1,1,1,1,1,1,2,1,1,2
+76,Male,25-35,Higher Secondary,Others,Daily,False,True,False,True,4,3,1,1,1,1,1,1,1,1,1,2
+77,Male,Below 25,Higher Secondary,Salaried Employee,Monthly,True,False,True,True,1,1,1,1,1,1,1,1,1,3,1,1
+78,Female,Below 25,Higher Secondary,Student,Daily,True,True,False,False,1,5,1,1,1,1,1,1,1,1,1,4
+79,Female,Below 25,Graduate,Student,Weekly,False,True,True,True,2,1,1,2,2,1,2,1,1,1,1,1
+80,Female,25-35,Graduate,Business Owner,Weekly,False,True,True,True,1,1,1,1,3,1,1,1,1,3,1,1
+81,Female,25-35,Graduate,Student,Daily,True,True,True,False,1,1,2,1,1,1,1,1,1,3,1,5
+82,Male,Below 25,Graduate,Student,Daily,True,True,True,True,5,1,1,1,1,1,1,1,1,1,1,1
+83,Female,Below 25,Graduate,Student,Weekly,True,True,True,False,5,1,1,1,1,3,1,1,1,1,1,1
+84,Male,Below 25,Higher Secondary,Student,Daily,True,True,True,False,3,1,1,2,1,1,1,1,1,1,4,1
+85,Male,Below 25,Graduate,Student,Daily,True,False,False,True,1,1,2,1,1,1,1,4,1,1,1,1
+86,Male,Below 25,Higher Secondary,Student,Weekly,True,True,True,True,1,1,2,1,1,1,1,1,1,1,1,1
+87,Female,Below 25,Higher Secondary,Student,Monthly,False,True,True,False,1,5,1,1,1,1,4,4,5,1,1,1
+88,Male,Below 25,Graduate,Salaried Employee,Daily,False,True,True,True,1,1,1,1,1,1,2,1,1,1,1,1
+89,Male,Below 25,Graduate,Student,Daily,False,True,True,False,1,1,1,1,1,1,1,1,1,1,1,3
+90,Female,Below 25,Higher Secondary,Student,Daily,False,True,True,False,1,1,2,1,1,1,2,1,1,1,1,1
+91,Male,Below 25,Graduate,Business Owner,Daily,True,False,True,False,1,1,1,1,2,1,3,1,1,1,1,1
+92,Female,25-35,Graduate,Salaried Employee,Daily,True,False,True,True,1,1,1,4,1,1,1,1,1,1,1,1
+93,Male,Below 25,Graduate,Student,Daily,True,True,True,True,1,1,1,1,1,1,1,1,1,1,1,1
+94,Male,25-35,Graduate,Student,Weekly,True,True,False,True,1,1,1,1,2,1,1,1,2,3,5,1
+95,Male,Below 25,Graduate,Business Owner,Daily,True,True,True,True,1,1,1,1,2,1,1,1,2,1,1,1
+96,Female,25-35,Higher Secondary,Student,Monthly,True,True,False,True,1,1,1,1,1,1,1,1,4,1,1,1
+97,Male,25-35,Postgraduate,Student,Daily,True,True,True,True,1,1,1,2,1,1,1,1,1,1,4,1
+98,Male,36-45,Graduate,Business Owner,Daily,True,True,True,True,2,1,2,1,1,1,1,1,1,1,1,1
+99,Male,25-35,Graduate,Student,Weekly,True,True,False,False,1,1,1,1,1,1,1,1,1,1,1,1
+100,Female,25-35,Graduate,Salaried Employee,Weekly,True,True,True,False,1,1,1,1,1,1,1,1,2,1,1,1
+101,Female,25-35,Higher Secondary,Student,Daily,True,True,False,True,1,1,1,1,1,1,1,1,1,1,3,1
+102,Female,25-35,Graduate,Salaried Employee,Daily,True,True,True,True,1,1,5,1,1,4,1,1,1,1,1,1
+103,Male,Below 25,Graduate,Student,Daily,True,True,True,True,1,1,1,4,1,1,1,1,1,1,1,1
+104,Female,Below 25,Postgraduate,Student,Daily,False,True,False,True,1,1,1,1,4,1,1,1,1,1,5,1
+105,Female,Below 25,Postgraduate,Student,Daily,True,False,True,True,1,2,1,1,1,1,3,1,1,1,1,1
+106,Female,25-35,Graduate,Student,Daily,True,True,True,False,1,1,1,3,2,5,2,1,1,4,5,3
+107,Male,Below 25,Graduate,Business Owner,Daily,True,True,True,False,1,1,1,2,5,1,3,1,1,1,2,1
+108,Male,Below 25,Postgraduate,Student,Daily,True,True,True,True,1,1,1,1,2,1,2,1,1,1,3,1
+109,Male,25-35,Higher Secondary,Student,Monthly,False,False,False,False,1,1,1,1,1,5,4,1,1,1,1,1
+110,Female,Below 25,Postgraduate,Salaried Employee,Weekly,True,True,True,False,1,1,1,1,2,1,1,1,2,1,1,1
+111,Male,Below 25,Graduate,Salaried Employee,Daily,True,False,True,True,1,1,1,2,1,5,1,1,1,1,1,1
+112,Male,Below 25,Higher Secondary,Student,Daily,True,False,False,True,2,1,4,1,1,1,1,4,1,1,1,1
+113,Male,Below 25,Higher Secondary,Student,Daily,True,True,True,True,1,1,1,1,2,1,1,1,2,1,1,2
+114,Female,Below 25,Postgraduate,Others,Daily,False,False,False,False,1,3,1,1,1,1,1,1,1,1,3,1
+115,Male,Below 25,Higher Secondary,Salaried Employee,Weekly,True,True,True,True,1,1,1,4,1,1,1,1,1,1,1,1
+116,Female,Below 25,Higher Secondary,Salaried Employee,Weekly,True,False,True,True,1,1,1,2,1,3,4,1,1,1,1,1
+117,Female,Below 25,Higher Secondary,Business Owner,Monthly,True,True,False,False,1,1,1,1,2,1,1,3,2,1,1,1
+118,Female,Below 25,Higher Secondary,Salaried Employee,Rarely,True,False,True,True,1,5,1,1,1,5,4,1,1,1,1,1
+119,Male,25-35,Higher Secondary,Student,Rarely,False,True,True,False,2,1,1,4,1,1,1,1,1,3,1,1
+120,Female,Below 25,Graduate,Student,Monthly,False,True,True,True,1,1,1,3,3,1,1,5,1,1,1,3
+121,Female,36-45,Higher Secondary,Student,Daily,True,True,False,False,1,1,2,1,1,4,1,1,1,1,1,1
+122,Female,25-35,Postgraduate,Salaried Employee,Daily,True,False,False,False,3,1,5,1,1,1,1,1,1,1,1,1
+123,Male,Below 25,Postgraduate,Business Owner,Daily,True,True,True,True,1,1,1,1,1,3,1,1,1,1,1,1
+124,Male,Below 25,Graduate,Student,Daily,True,True,True,False,1,1,1,1,5,1,1,1,1,1,1,1
+125,Male,Below 25,Higher Secondary,Student,Daily,False,False,False,True,1,1,1,1,1,1,3,1,2,1,1,3
+126,Female,25-35,Graduate,Student,Weekly,True,False,True,True,1,3,1,1,1,1,1,1,1,1,1,1
+127,Male,25-35,Higher Secondary,Business Owner,Weekly,True,True,True,True,1,1,1,1,1,1,1,3,1,1,2,1
+128,Male,25-35,Higher Secondary,Student,Daily,False,True,True,False,1,1,1,2,2,1,1,3,4,1,1,1
+129,Male,Below 25,Others,Student,Daily,True,True,True,True,4,1,1,1,1,1,1,1,1,2,1,3
+130,Female,25-35,Others,Student,Daily,True,False,False,True,1,1,1,1,1,1,1,1,5,1,1,1
+131,Male,Below 25,Graduate,Student,Daily,True,True,False,True,1,1,3,1,5,1,1,1,5,5,1,1
+132,Female,25-35,Higher Secondary,Student,Weekly,True,False,False,True,1,1,1,1,1,2,1,1,3,1,2,2
+133,Female,Below 25,Graduate,Student,Daily,True,True,True,True,1,1,1,1,1,1,1,1,1,2,1,1
+134,Male,25-35,Graduate,Student,Weekly,True,True,True,True,1,1,1,1,1,1,1,1,1,2,1,1
+135,Female,25-35,Graduate,Student,Daily,False,True,True,True,1,1,1,1,2,5,1,1,1,1,1,1
+136,Male,Below 25,Graduate,Student,Daily,False,True,True,False,1,1,1,1,1,1,1,1,1,2,1,1
+137,Female,Below 25,Higher Secondary,Student,Daily,True,False,True,True,1,1,5,3,1,1,1,1,1,4,1,1
+138,Female,Below 25,Higher Secondary,Student,Weekly,True,True,True,True,1,1,1,1,1,1,1,1,1,1,1,2
+139,Female,25-35,Graduate,Salaried Employee,Weekly,True,True,True,False,1,1,1,3,1,1,1,1,2,1,1,1
+140,Male,Below 25,Higher Secondary,Student,Daily,False,False,True,True,1,1,1,2,2,1,1,1,1,1,1,1
+141,Female,25-35,Higher Secondary,Student,Monthly,True,False,False,False,1,1,1,2,1,1,1,1,1,2,2,4
+142,Female,Below 25,Postgraduate,Student,Daily,True,False,True,True,1,1,1,1,1,1,1,1,1,1,1,1
+143,Female,36-45,Others,Student,Monthly,True,True,True,False,1,5,1,1,3,1,1,1,1,2,3,2
+144,Female,25-35,Graduate,Student,Daily,True,True,False,False,1,3,2,1,1,1,1,1,1,2,1,1
+145,Female,Below 25,Postgraduate,Student,Daily,True,False,False,False,1,1,1,1,1,1,4,1,1,5,1,5
+146,Male,25-35,Others,Business Owner,Weekly,True,True,False,True,1,1,1,1,1,1,1,1,2,1,1,1
+147,Male,25-35,Higher Secondary,Student,Daily,True,True,True,True,1,1,1,4,1,1,3,3,1,1,2,1
+148,Female,36-45,Graduate,Student,Daily,False,False,False,False,1,1,2,1,1,2,1,1,1,1,1,1
+149,Male,Below 25,Graduate,Student,Daily,True,True,True,True,1,1,1,1,1,1,1,1,1,4,3,1
+150,Male,Below 25,Higher Secondary,Student,Daily,True,True,True,True,1,1,1,1,1,1,1,1,1,3,1,3
+151,Female,Below 25,Graduate,Student,Weekly,True,False,True,True,1,2,1,1,1,1,1,1,1,1,1,1
+152,Female,Below 25,Graduate,Salaried Employee,Weekly,True,True,True,False,1,1,1,1,1,1,2,1,1,1,1,1
+153,Male,Below 25,Graduate,Salaried Employee,Weekly,True,True,True,True,1,1,1,1,1,1,1,1,1,1,1,1
+154,Female,Below 25,Higher Secondary,Student,Daily,True,True,True,True,1,1,1,1,1,1,1,2,1,5,1,1
+155,Male,Below 25,Higher Secondary,Student,Daily,False,True,False,False,3,1,1,1,2,5,1,1,1,1,1,1
+156,Female,Below 25,Postgraduate,Student,Daily,True,True,True,True,1,3,1,1,1,1,1,1,1,1,1,1
+157,Male,Below 25,Higher Secondary,Student,Daily,False,False,True,True,3,1,1,1,1,2,1,1,1,2,1,1
+158,Female,25-35,Higher Secondary,Salaried Employee,Daily,True,False,True,True,1,5,2,1,1,1,5,1,2,1,1,2
+159,Female,25-35,Higher Secondary,Student,Monthly,True,True,True,True,3,1,2,5,1,1,1,1,1,1,1,1
+160,Female,Below 25,Graduate,Student,Weekly,True,True,True,True,4,1,1,1,1,1,2,1,2,1,1,1
+161,Male,Below 25,Graduate,Business Owner,Weekly,True,False,True,False,1,1,1,1,1,1,1,1,1,2,1,1
+162,Female,25-35,Graduate,Student,Daily,True,True,True,False,1,1,1,1,1,2,1,1,1,1,1,1
+163,Male,Below 25,Higher Secondary,Student,Daily,True,True,False,True,5,1,2,1,1,4,1,1,1,1,1,1
+164,Male,Below 25,Higher Secondary,Salaried Employee,Daily,True,True,False,True,3,1,1,1,1,2,2,1,1,1,1,1
+165,Female,Below 25,Postgraduate,Student,Daily,True,False,True,True,5,1,1,1,1,1,1,1,5,1,2,1
+166,Male,25-35,Graduate,Student,Daily,True,True,True,False,1,1,1,4,2,2,1,1,1,3,1,1
+167,Female,Below 25,Graduate,Student,Daily,True,False,False,False,1,1,2,1,1,1,1,1,2,1,1,1
+168,Female,25-35,Graduate,Business Owner,Daily,True,True,False,False,2,1,1,1,2,3,1,1,2,1,2,1
+169,Male,25-35,Graduate,Student,Monthly,True,True,True,True,1,1,1,1,2,1,1,1,1,1,1,1
+170,Female,Below 25,Higher Secondary,Student,Daily,True,True,False,True,1,1,5,1,2,1,1,1,1,1,1,1
+171,Male,25-35,Higher Secondary,Student,Monthly,False,True,False,True,1,1,1,1,1,1,1,1,1,1,4,1
+172,Female,25-35,Graduate,Student,Daily,True,True,False,True,1,1,2,1,1,1,1,1,1,1,4,1
+173,Male,Below 25,Higher Secondary,Salaried Employee,Daily,True,True,True,True,1,1,1,1,1,1,1,1,1,1,1,1
+174,Female,Below 25,Postgraduate,Student,Daily,True,True,True,True,1,1,1,1,1,3,3,1,1,1,1,1
+175,Male,Below 25,Graduate,Student,Daily,True,True,True,False,1,2,2,1,3,2,1,1,3,1,1,1
+176,Male,Below 25,Graduate,Student,Daily,True,True,True,True,1,1,1,1,1,4,5,1,1,1,5,1
+177,Male,Below 25,Postgraduate,Business Owner,Daily,True,True,True,True,2,2,1,1,1,1,4,1,1,4,4,3
+178,Prefer not to say,25-35,Graduate,Student,Monthly,True,False,True,False,1,1,1,1,1,1,1,1,1,1,1,1
+179,Female,Below 25,Postgraduate,Business Owner,Daily,True,True,True,True,1,1,1,1,4,1,1,1,1,5,1,1
+180,Female,Below 25,Graduate,Salaried Employee,Weekly,True,False,True,False,1,1,1,1,1,1,1,1,2,1,1,1
+181,Female,25-35,Postgraduate,Student,Daily,True,False,False,True,5,1,1,1,1,1,1,1,1,1,1,1
+182,Female,Below 25,Higher Secondary,Salaried Employee,Daily,True,True,True,False,1,1,1,5,2,1,1,1,5,1,1,1
+183,Female,25-35,Graduate,Business Owner,Daily,True,True,True,True,1,1,1,1,5,1,1,1,2,1,1,2
+184,Male,25-35,Graduate,Student,Daily,True,False,False,True,1,1,1,1,1,1,1,1,2,1,1,1
+185,Female,Below 25,Higher Secondary,Business Owner,Rarely,True,True,False,True,1,1,1,1,2,1,1,1,1,1,1,1
+186,Female,Below 25,Graduate,Student,Weekly,True,True,False,True,1,1,1,2,3,1,5,1,2,1,1,1
+187,Male,36-45,Postgraduate,Student,Weekly,True,True,False,True,4,1,1,1,1,1,1,2,1,1,1,1
+188,Male,25-35,Graduate,Self-Employed,Daily,True,True,False,True,1,1,2,1,1,3,1,1,1,1,1,1
+189,Female,36-45,Higher Secondary,Student,Daily,True,True,True,True,1,1,1,1,1,1,5,1,1,4,1,1
+190,Male,Below 25,Higher Secondary,Salaried Employee,Monthly,True,False,True,False,2,5,1,2,1,2,1,1,1,5,4,1
+191,Female,25-35,Higher Secondary,Student,Daily,True,False,True,True,1,1,1,1,1,1,1,1,1,1,1,5
+192,Male,25-35,Higher Secondary,Salaried Employee,Daily,True,True,True,True,2,5,2,3,1,1,2,1,1,2,1,1
+193,Male,Below 25,Postgraduate,Student,Daily,False,False,False,True,1,1,1,1,1,1,1,1,1,1,1,5
+194,Female,Below 25,Graduate,Student,Weekly,True,True,True,False,1,1,1,2,1,2,1,2,2,1,1,1
+195,Male,25-35,Higher Secondary,Student,Weekly,True,False,True,True,3,1,1,1,1,1,1,1,1,1,1,1
+196,Male,Below 25,Graduate,Student,Weekly,True,True,True,True,1,1,1,1,1,1,3,4,1,1,1,1
+197,Female,Below 25,Higher Secondary,Student,Weekly,True,False,True,False,1,1,1,1,1,1,1,1,1,1,1,1
+198,Female,25-35,Higher Secondary,Student,Daily,False,False,True,True,5,1,5,1,1,1,1,1,1,5,1,5
+199,Male,Below 25,Graduate,Student,Monthly,False,True,True,False,1,1,1,1,1,1,1,3,1,1,1,1
